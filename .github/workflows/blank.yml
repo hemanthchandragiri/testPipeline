@@ -52,22 +52,30 @@ jobs:
       - name: run code analyzer
         run: |
           echo "Run!"
-         
-          sf code-analyzer run \
+            sf code-analyzer run \
             --rule-selector Critical \
             --rule-selector High \
             --rule-selector Moderate \
             --rule-selector Low \
             --rule-selector Info \
-            --target "force-app/main/default/classes" \
-            --target "force-app/main/default/lwc" \
-            --target "force-app/main/default/flows" \
-            --target "force-app/main/default/aura" \
-            --target "force-app/main/default/pages" \
-            --target "force-app/main/default/triggers" \
+            --target "testApex.cls"
             --output-file "DevBranchCodeAnalyzer.html" \
             --output-file "DevBranchCodeAnalyzer.csv"
-
+          
+            # sf code-analyzer run \
+            # --rule-selector Critical \
+            # --rule-selector High \
+            # --rule-selector Moderate \
+            # --rule-selector Low \
+            # --rule-selector Info \
+            # --target "force-app/main/default/classes" \
+            # --target "force-app/main/default/lwc" \
+            # --target "force-app/main/default/flows" \
+            # --target "force-app/main/default/aura" \
+            # --target "force-app/main/default/pages" \
+            # --target "force-app/main/default/triggers" \
+            # --output-file "DevBranchCodeAnalyzer.html" \
+            # --output-file "DevBranchCodeAnalyzer.csv"
         
       - name: upload report
         uses: actions/upload-artifact@v4
