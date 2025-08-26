@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Salesforce Code Analyzer
 
 # Controls when the workflow will run
 on:
@@ -16,21 +16,51 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  run-code-analyzer:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    container:
+      image:node:latest
+  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Install cli
+        run: npm install @salesforce/cli --global
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Install code analyzer
+        run: sf plugins install code-analyzer
+
+      - name: run code analyzer
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo "Run!"
+         
+          sf code-analyzer run \
+            --rule-selector Critical \
+            --rule-selector High \
+            --rule-selector Moderate \
+            --rule-selector Low \
+            --rule-selector Info \
+            --target "force-app/main/default/classes" \
+            --target "force-app/main/default/lwc" \
+            --target "force-app/main/default/flows" \
+            --target "force-app/main/default/aura" \
+            --target "force-app/main/default/pages" \
+            --target "force-app/main/default/triggers" \
+            --output-file "DevBranchCodeAnalyzer.html" \
+            --output-file "DevBranchCodeAnalyzer.csv"
+
+        
+      - name: upload report
+        uses: actions/upload-artifact@v4
+        with:
+           name: code-analyzer-report
+           path: |
+             DevbranchCodeAnalyzer.csv
+             DevBranchCodeAnalyzer.html
+           
