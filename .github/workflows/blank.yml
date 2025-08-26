@@ -31,7 +31,8 @@ jobs:
       - name : install jdk
         run : |
           apt-get update
-          apt-get install -y openjdk-17-jdk
+          apt-get install -y default -jdk-headless
+          export _JAVA_OPTIONS="-Xm1024m"
           java - version
       - name : install python
         run : |
