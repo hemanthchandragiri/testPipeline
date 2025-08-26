@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:node:latest
+      image: node:latest
   
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
