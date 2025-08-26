@@ -58,7 +58,7 @@ jobs:
             --rule-selector Moderate \
             --rule-selector Low \
             --rule-selector Info \
-            --target "testApex.cls"
+            --target "testApex.cls" \
             --output-file "DevBranchCodeAnalyzer.html" \
             --output-file "DevBranchCodeAnalyzer.csv"
           
