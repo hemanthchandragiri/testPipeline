@@ -19,26 +19,27 @@ jobs:
   run-code-analyzer:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    container:
-      image: node:latest
   
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name : install jdk
-        run : |
-          apt-get update
-          apt-get install -y default-jdk-headless
-          export _JAVA_OPTIONS="-Xm1024m"
-          java - version
+      - name : setup node
+        uses : actions/setup-node@v4
+        with :
+          node-version : 23.11.0
+
+      - name : install java
+        uses : actions/setup-java@v4
+        with:
+          distribution : temurin
+          java-version : 17
+            
       - name : install python
-        run : |
-          apt-get update
-          apt-get install -y python3 python3-pip
-          python3 --version
+        uses : actions/setup-python@v5
+        with:
+          python-verion : '3.x'
 
       # Runs a single command using the runners shell
       - name: Install cli
