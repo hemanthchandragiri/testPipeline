@@ -60,7 +60,7 @@ jobs:
             --rule-selector Info \
             --target "testApex.cls" \
             --output-file "DevBranchCodeAnalyzer.html" \
-            --output-file "DevBranchCodeAnalyzer.csv"
+            --output-file "DevBranchCodeAnalyzer.csv" \
           
             # sf code-analyzer run \
             # --rule-selector Critical \
@@ -75,7 +75,7 @@ jobs:
             # --target "force-app/main/default/pages" \
             # --target "force-app/main/default/triggers" \
             # --output-file "DevBranchCodeAnalyzer.html" \
-            # --output-file "DevBranchCodeAnalyzer.csv"
+            # --output-file "DevBranchCodeAnalyzer.csv" 
         
       - name: upload report
         uses: actions/upload-artifact@v4
